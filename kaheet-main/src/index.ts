@@ -110,7 +110,52 @@ const highlight = (quiz: Quiz) => {
             ) as HTMLElement;
 
             if (answerElement != null) {
-                answerElement.style.border = "black solid 1px";
+                answerElement.style.border = "black solid 2px";
+                answerElement.style.borderRadius = "2px";
+               
+            }
+        });
+
+    if (checkForNewQuestion()) consoleAnswers(question.question, answers);
+};
+
+const consoleAnswers = (question: string, answers: Answer[]) => {
+    const correctAnswers = answers.filter((answer: Answer) => answer.correct);
+
+    console.log(
+        `
+%c❓ Question: %c${question}
+%c📝 Answers (${correctAnswers.length}): %c\n${correctAnswers
+            .map((answer) => answer.answer)
+            .join("\n")}`,
+        "color:orange;font-size:15px;",
+        "color:white;font-size:20px;",
+        "color:yellow;font-size:15px;",
+        "color:white;font-size:20px;"
+    );
+};
+
+(async () => {
+    const promptQuizId = async () => {
+        const input = getInput();
+        const quiz = await getQuizData(input);
+
+        setInterval(() => {
+            highlight(quiz);
+        }, 500);
+    };
+
+    if (checkForChallenge()) {
+        const quizid = getChallengeId();
+        if (quizid == undefined) promptQuizId();
+
+        const quiz = await getQuizData(quizid);
+        highlight(quiz);
+    } else {
+        promptQuizId();
+    }
+})();
+
             }
         });
 
